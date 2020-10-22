@@ -1,0 +1,110 @@
+<h5 class="mt-4"></h5>
+
+<div class="container">
+    <form #form="ngForm" (ngSubmit)="onSubmit()">
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-success" role="alert" *ngIf="success == true">
+                    Rede MT salva com sucesso!
+                </div>
+                <div class="alert alert-danger" role="alert" *ngFor="let erro of errors">
+                    {{ erro }}
+                </div>
+            </div>
+        </div>
+
+        <ol class="breadcrumb md-4">
+            <li class="breadcrumb-item active">{{ servico.id ? ' Alterar RedeMT' : 'Selecione a subestacao'}}</li>
+        </ol>
+
+       <div class="row">
+           <div class="col-md-12">
+               <div class="form-group">
+                   <label>Subestacao:</label>
+                   
+                   <select class="form-control" *ngIf="ida == true"
+                        [ngModelOptions]="{standalone: true}"
+                        [(ngModel)]="servico.id">
+                    <option value="">Selecionar</option>
+                    <option *ngFor="let subestacao of subestacoes" 
+                            [ngValue]="subestacao.id">
+                        {{ subestacao.nome}}
+                    </option>
+                   </select>
+
+                   <select class="form-control" *ngIf="ida == false" disabled=true
+                        [ngModelOptions]="{standalone: true}"
+                        [(ngModel)]="servico.id">
+                    <option value="">Selecionar</option>
+                    <option *ngFor="let subestacao of subestacoes" 
+                            [ngValue]="subestacao.id">
+                        {{ subestacao.nome}}
+                    </option>
+                   </select>
+                
+
+                </div>
+           </div>
+        </div>
+
+        <br />
+        <ol class="breadcrumb md-3">
+            <li class="breadcrumb-item active">{{ servico.id ? 'Editar RedeMT' : 'Cadastrar RedeMT'}}</li>
+        </ol>
+
+           <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Código: *</label>
+                        <input class="form-control" maxlength="5"  *ngIf="ida == false" disabled=true
+                            [(ngModel)]="servico.codigo" type="text" 
+                            name="codigo" id="inputCodigo">
+                        <input class="form-control" maxlength="5"  *ngIf="ida == true"
+                            [(ngModel)]="servico.codigo" type="text" 
+                            name="codigo" id="inputCodigo">
+                    </div>
+                </div>
+            </div>
+       
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Nome: *</label>
+                        <input class="form-control" 
+                            [(ngModel)]="servico.nome" type="text" 
+                            name="nome" id="inputNome">
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Tensão Nominal: *</label>
+                    <input class="form-control" 
+                        [(ngModel)]="servico.tensao_nominal" type="text" 
+                        name="tensao" id="inputTensao">
+                </div>
+            </div>
+        </div>
+
+       <div class="row">
+           <div class="col-md-3">
+               <button type="submit" class="btn btn-success" *ngIf="ida == true">
+                   <i class="fa fa-save"></i>
+                   Salvar
+                </button>
+                <button type="submit" class="btn btn-success" *ngIf="ida == false">
+                    <i class="fa fa-sync-alt"></i>
+                    Atualizar
+                 </button>
+            </div>
+
+            <div class="col-md-3">
+                <button type="button" class="btn btn-danger ml-1" (click)="voltarLista()">
+                    <i class="fas fa-angle-double-left" ></i> Voltar
+                </button>
+            </div>
+       </div>
+
+    </form>
+</div>

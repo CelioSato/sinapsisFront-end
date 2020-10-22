@@ -1,0 +1,94 @@
+<h5 class="mt-4"></h5>
+
+    <div class="container">
+        <form #subestacaoForm="ngForm" (ngSubmit)="onSubmit()">
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-success" role="alert" *ngIf="success == true">
+                        Cliente salvo/atualizado com sucesso!
+                    </div>
+                    <div class="alert alert-danger" role="alert" *ngFor="let erro of errors">
+                        {{ erro }}
+                    </div>
+                </div>
+            </div>
+
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item active">{{ subestacao.id ? 'Atualizar Subestação' : 'Cadastrar Subestação'}}</li>
+            </ol>
+
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Código: *</label>
+                        <input type="text" class="form-control" name="codigo" maxlength="3"
+                                [(ngModel)] = "subestacao.codigo" *ngIf="subestacao.id" disabled=true/>
+                        <input type="text" class="form-control" name="codigo" maxlength="3"
+                                [(ngModel)] = "subestacao.codigo" *ngIf="!subestacao.id" />
+                    </div>
+                </div>
+
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label>Nome: *</label>
+                        <input type="text" class="form-control" name="nome" maxlength="100" 
+                                [(ngModel)] = "subestacao.nome"   />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Latitude: (Max: 15)</label>
+                        <input type="text" class="form-control" name="latitude" 
+                                [(ngModel)] = "subestacao.latitude"   />
+                    </div> 
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Longitude: (Max: 15)</label>
+                        <input type="text" class="form-control" name="longitude" 
+                                [(ngModel)] = "subestacao.longitude"  />         
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-success" *ngIf="!subestacao.id">
+                        <i class="fa fa-save" ></i> Salvar
+                    </button>
+
+                    <button type="submit" class="btn btn-primary" *ngIf="subestacao.id">
+                        <i class="fas fa-sync" ></i> Atualizar
+                    </button>
+
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-danger ml-1" (click)="voltarLista()">
+                        <i class="fas fa-angle-double-left" ></i> Voltar
+                    </button>
+                </div>
+
+                <div class="col-md-5">
+                    <button type="button" class="btn btn-warning ml-1" (click)="atualizarMapa()">
+                        <i class="fas fa-map-marked-alt" ></i> Atualizar Mapa
+                    </button>
+                </div>
+
+            </div>
+            <br />
+            
+            <google-map
+                height="500px"
+                width="100%"
+                [zoom]="zoom"
+                [center]="center"
+                [options]="options">
+            </google-map>
+          
+        </form>
+
+    </div>

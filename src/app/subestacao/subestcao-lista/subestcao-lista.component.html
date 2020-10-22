@@ -1,0 +1,87 @@
+<h5 class="mt-4"></h5>
+
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">Consulta</li>
+</ol>
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="alert alert-success" role="alert" *ngIf="mensagemSuccess">
+               {{ mensagemSuccess }}
+            </div>
+
+            <div class="alert alert-danger" role="alert" *ngIf="mensagemErro">
+                {{ mensagemErro }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <button class="btn btn-warning" (click)="novoCadastro()">
+                <i class="fa fa-plus"></i>Novo
+            </button>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nome</th>
+                        <th>Excluir</th>
+                        <th>Alterar</th>
+                        <th>Exibir no mapa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let subestacao of subestcaoes">
+                        <td>{{subestacao.codigo}}</td>
+                        <td>{{subestacao.nome}}</td>
+                        <td>
+                            <button class="btn btn-warning" (click)="preparDeletar(subestacao)" 
+                                    data-toggle="modal" data-target="#modalDeletar">
+                                <i class="fas fa-trash-alt" ></i> 
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-secondary" 
+                                    routerLink="/subestacao/form/{{ subestacao.id }}">
+                                <i class="fas fa-pencil-alt" ></i> 
+                            </button>
+                        </td>
+                        <td> 
+                            <button class="btn btn-primary">
+                                <i class="fas fa-map-marked-alt" ></i> 
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="modalDeletar" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Confirmação</h4>
+                </div>
+
+                <div class="modal-body" *ngIf="subestacaoSelecionada">
+                    Deseja excluir a {{subestacaoSelecionada.nome}} ?
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success"(click)="deleteSubestacao()" 
+                                                    data-dismiss="modal">Confirmar</button>
+                    <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

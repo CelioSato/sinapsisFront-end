@@ -1,0 +1,96 @@
+<h5 class="mt-4"></h5>
+
+<div class="container">
+    <form #procurarForm="ngForm" (ngSubmit)="consultar()">
+
+        <ol class="breadcrumb md-4">
+            <li class="breadcrumb-item active">Selecione a subestação</li>
+        </ol> 
+
+        <div class="row">
+            <div class="col-md-6">
+                <label for="inputNome">Subestação:</label>
+                <input type="text" [(ngModel)]="nome" 
+                       name="nome" class="form-control" 
+                       id="inputNome">
+            </div>
+        </div>
+        
+        <br />
+        <div class="row">
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary" >
+                    <i class="fa fa-search"></i> Procurar
+                </button>
+            </div>
+
+            <div class="col-md-3">
+                <button type="button" class="btn btn-warning" (click)="novaRedeMT()">
+                    <i class="fa fa-plus"></i> Novo
+                </button>
+            </div>
+
+        </div>
+    </form>
+
+    <br />
+    <div class="row">
+        <div class="alert alert-warning" role="alert" *ngIf="message">
+            {{ message }}
+        </div>
+        <div class="col-md-12">
+          <table class="table">
+              <thead>
+                  <tr>
+                     <th>Id</th>
+                     <th>Nome</th> 
+                     <th>Código</th>
+                     <th>Tensão Nominal</th> 
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let r of lista">
+                      <td>{{ r.id }}</td>
+                      <td>{{ r.nome }}</td>
+                      <td>{{ r.codigo }}</td>
+                      <td>{{ r.tensao_nominal }}</td>
+                      <td>
+                        <button class="btn btn-warning" (click)="preparaDeletar(r)"
+                                data-toggle="modal" data-target="#modalDeletar">
+                            <i class="fas fa-trash-alt" ></i> 
+                        </button>
+                    </td>
+                    
+                    <td>
+                        <button class="btn btn-secondary" 
+                                (click)="alterarRede(r.id)">
+                            <i class="fas fa-pencil-alt" ></i> 
+                        </button>
+                    </td>
+
+                  </tr>
+              </tbody>
+          </table>
+        </div>
+    </div>
+
+    <div id="modalDeletar" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Confirmação</h4>
+                </div>
+
+                <div class="modal-body" *ngIf="redeSelecionada">
+                   Desja excluir o {{ redeSelecionada.nome }}?
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" (click)="deleteRede()"
+                                                    data-dismiss="modal">Confirmar</button>
+                    <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
